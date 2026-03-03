@@ -16,6 +16,8 @@ if errorlevel 1 (
 echo [3/4] Copying resources...
 xcopy /s /y /q src\com\dabomstew\pkrandom\config bin\com\dabomstew\pkrandom\config\
 xcopy /s /y /q src\com\dabomstew\pkrandom\newgui\*.properties bin\com\dabomstew\pkrandom\newgui\
+xcopy /s /y /q src\com\dabomstew\pkrandom\newgui\*.png bin\com\dabomstew\pkrandom\newgui\
+xcopy /s /y /q src\com\dabomstew\pkrandom\newgui\*.gif bin\com\dabomstew\pkrandom\newgui\
 xcopy /s /y /q src\com\dabomstew\pkrandom\patches bin\com\dabomstew\pkrandom\patches\
 
 echo [4/4] Packaging JAR...
