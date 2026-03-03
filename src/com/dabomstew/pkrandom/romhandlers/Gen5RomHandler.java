@@ -2267,7 +2267,7 @@ public class Gen5RomHandler extends AbstractDSRomHandler {
         }
 
         // BW2 hidden grotto encounters
-        if (romEntry.romType == Gen5Constants.Type_BW2) {
+        if (romEntry.romType == Gen5Constants.Type_BW2 && !romEntry.arrayEntries.containsKey("DisableHiddenGrottos")) {
             try {
                 NARCArchive hhNARC = this.readNARC(romEntry.getFile("HiddenHollows"));
                 for (byte[] hhEntry : hhNARC.files) {
@@ -4280,26 +4280,8 @@ public class Gen5RomHandler extends AbstractDSRomHandler {
 
     @Override
     public boolean isRomValid() {
-        if (romEntry.arm9ExpectedCRC32 != actualArm9CRC32) {
-            return false;
-        }
-
-        for (int overlayNumber : romEntry.overlayExpectedCRC32s.keySet()) {
-            long expectedCRC32 = romEntry.overlayExpectedCRC32s.get(overlayNumber);
-            long actualCRC32 = actualOverlayCRC32s.get(overlayNumber);
-            if (expectedCRC32 != actualCRC32) {
-                return false;
-            }
-        }
-
-        for (String fileKey : romEntry.files.keySet()) {
-            long expectedCRC32 = romEntry.files.get(fileKey).expectedCRC32;
-            long actualCRC32 = actualFileCRC32s.get(fileKey);
-            if (expectedCRC32 != actualCRC32) {
-                return false;
-            }
-        }
-
+        // Redux fork: skip CRC validation since Redux's CRCs will never match vanilla
+        // B2.
         return true;
     }
 
